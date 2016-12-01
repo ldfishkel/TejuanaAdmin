@@ -2,6 +2,7 @@
 {
     using Autofac;
     using IoC;
+    using Rest;
     using System;
     using System.Windows.Forms;
 
@@ -13,7 +14,7 @@
         static void Main()
         {
             InitializeDependencies();
-
+           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(_container.Resolve<MainForm>());

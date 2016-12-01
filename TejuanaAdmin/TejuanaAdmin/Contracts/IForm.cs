@@ -10,7 +10,7 @@
     public interface IProductForm : IForm {}
     public interface IPurchaseForm : IForm {}
     public interface IShippingorm : IForm {}
-    public interface IStockForm : IForm {}
     public interface ISupplyForm : IForm {}
     public interface IWithdrawForm : IForm {}
+    public interface IOrderForm : IForm {}
 }

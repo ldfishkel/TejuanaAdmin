@@ -24,17 +24,17 @@
 
         #region [INIT]
 
-        public MainForm(IProductForm productForm,
+        public MainForm(IOrderForm orderForm, 
+            IProductForm productForm,
             IPurchaseForm purchaseForm,
             IShippingorm shippingForm,
-            IStockForm stockForm,
             ISupplyForm supplyForm,
             IWithdrawForm withdrawForm)
         {
             _funcionalities = new Dictionary<string, IForm>()
             {
+                { "Pedidos",  orderForm },
                 { "Productos",  productForm },
-                { "Stock",  stockForm },
                 { "Insumos",  supplyForm },
                 { "Retiros",  withdrawForm },
                 { "Envios",  shippingForm },

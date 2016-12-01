@@ -36,6 +36,14 @@
       <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,40 +58,76 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IForm.cs" />
-    <Compile Include="Functionalities\Product\ProductForm.cs">
+    <Compile Include="Contracts\IResponse.cs" />
+    <Compile Include="Daos\ShippingDao.cs" />
+    <Compile Include="Daos\ProductDao.cs" />
+    <Compile Include="Daos\OrderDao.cs" />
+    <Compile Include="Daos\SupplyDao.cs" />
+    <Compile Include="Rest\HttpException.cs" />
+    <Compile Include="Rest\RequestHandler.cs" />
+    <Compile Include="Rest\RequestPaths.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequestPaths.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rest\ResponseHandler.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="ViewModel\Order\OrderVM.cs" />
+    <Compile Include="ViewModel\Product\TagVM.cs" />
+    <Compile Include="ViewModel\Shipping\ShippingVM.cs" />
+    <Compile Include="ViewModel\Supply\SupplyVM.cs" />
+    <Compile Include="View\Order\OrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functionalities\Product\ProductForm.Designer.cs">
+    <Compile Include="View\Order\OrderForm.Designer.cs">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Product\NewProductTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Product\NewProductTypeForm.Designer.cs">
+      <DependentUpon>NewProductTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Product\ProductDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Product\ProductDetailsForm.Designer.cs">
+      <DependentUpon>ProductDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Product\ProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Product\ProductForm.Designer.cs">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functionalities\Purchases\PurchaseForm.cs">
+    <Compile Include="View\Product\ViewImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functionalities\Purchases\PurchaseForm.Designer.cs">
+    <Compile Include="View\Product\ViewImageForm.Designer.cs">
+      <DependentUpon>ViewImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Purchases\PurchaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Purchases\PurchaseForm.Designer.cs">
       <DependentUpon>PurchaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functionalities\Shipping\ShippingForm.cs">
+    <Compile Include="View\Shipping\ShippingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functionalities\Shipping\ShippingForm.Designer.cs">
+    <Compile Include="View\Shipping\ShippingForm.Designer.cs">
       <DependentUpon>ShippingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functionalities\Stock\StockForm.cs">
+    <Compile Include="View\Supply\SupplyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functionalities\Stock\StockForm.Designer.cs">
-      <DependentUpon>StockForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Functionalities\Supply\SupplyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Functionalities\Supply\SupplyForm.Designer.cs">
+    <Compile Include="View\Supply\SupplyForm.Designer.cs">
       <DependentUpon>SupplyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functionalities\Withdraw\WithdrawForm.cs">
+    <Compile Include="View\Withdraw\WithdrawForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functionalities\Withdraw\WithdrawForm.Designer.cs">
+    <Compile Include="View\Withdraw\WithdrawForm.Designer.cs">
       <DependentUpon>WithdrawForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IoC\Bootstrapper.cs" />
@@ -96,22 +140,38 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Functionalities\Product\ProductForm.resx">
+    <Compile Include="ViewModel\Product\ProductSupplyVM.cs" />
+    <Compile Include="ViewModel\Product\ProductTypeVM.cs" />
+    <Compile Include="ViewModel\Product\ProductVM.cs" />
+    <EmbeddedResource Include="Rest\RequestPaths.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RequestPaths.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Order\OrderForm.resx">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Product\NewProductTypeForm.resx">
+      <DependentUpon>NewProductTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Product\ProductDetailsForm.resx">
+      <DependentUpon>ProductDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Product\ProductForm.resx">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Functionalities\Purchases\PurchaseForm.resx">
+    <EmbeddedResource Include="View\Product\ViewImageForm.resx">
+      <DependentUpon>ViewImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Purchases\PurchaseForm.resx">
       <DependentUpon>PurchaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Functionalities\Shipping\ShippingForm.resx">
+    <EmbeddedResource Include="View\Shipping\ShippingForm.resx">
       <DependentUpon>ShippingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Functionalities\Stock\StockForm.resx">
-      <DependentUpon>StockForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Functionalities\Supply\SupplyForm.resx">
+    <EmbeddedResource Include="View\Supply\SupplyForm.resx">
       <DependentUpon>SupplyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Functionalities\Withdraw\WithdrawForm.resx">
+    <EmbeddedResource Include="View\Withdraw\WithdrawForm.resx">
       <DependentUpon>WithdrawForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
